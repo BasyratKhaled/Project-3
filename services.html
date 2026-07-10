@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services | CyberTech Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{
+      --bg:#05060a;
+      --panel:rgba(255,255,255,.06);
+      --panel2:rgba(255,255,255,.08);
+      --border:rgba(255,255,255,.12);
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --accent:#38bdf8;
+      --accent2:#8b5cf6;
+      --accent3:#22c55e;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:'Inter',sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(56,189,248,.12), transparent 35%),
+        radial-gradient(circle at right, rgba(139,92,246,.10), transparent 30%),
+        var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+    .glass{
+      background:var(--panel);
+      border:1px solid var(--border);
+      backdrop-filter:blur(18px);
+      box-shadow:0 20px 60px rgba(0,0,0,.35);
+    }
+    .glass-strong{
+      background:var(--panel2);
+      border:1px solid rgba(255,255,255,.15);
+      backdrop-filter:blur(22px);
+      box-shadow:0 25px 80px rgba(0,0,0,.45);
+    }
+    .gradient-text{
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+    .section{
+      position:relative;
+      padding:110px 20px 90px;
+    }
+    .container{
+      max-width:1200px;
+      margin:0 auto;
+    }
+    .nav-link{
+      color:#cbd5e1;
+      transition:.25s ease;
+      font-size:12px;
+    }
+    .nav-link:hover{color:white}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:10px 18px;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      color:white;
+      font-weight:600;
+      font-size:13px;
+      border:none;
+      cursor:pointer;
+      transition:transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+      box-shadow:0 14px 30px rgba(15,23,42,.6);
+    }
+    .btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 18px 40px rgba(15,23,42,.8);
+      opacity:.97;
+    }
+    .btn-outline{
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.45);
+      background:rgba(15,23,42,.9);
+      color:#e5e7eb;
+      padding:9px 18px;
+      font-size:13px;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      transition:.2s ease;
+    }
+    .btn-outline:hover{
+      border-color:rgba(56,189,248,.8);
+      color:white;
+      box-shadow:0 8px 26px rgba(15,23,42,.8);
+    }
+    .section-label{
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-size:11px;
+      color:#9ca3af;
+    }
+    .card-3d{
+      transform-style:preserve-3d;
+      transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease, background .35s ease;
+      border:1px solid rgba(148,163,184,.45);
+      background:radial-gradient(circle at top left, rgba(56,189,248,.14), rgba(15,23,42,.96));
+    }
+    .card-3d:hover{
+      transform:perspective(1100px) rotateX(6deg) rotateY(-8deg) translateY(-4px);
+      border-color:rgba(56,189,248,.95);
+      box-shadow:0 28px 80px rgba(15,23,42,1);
+      background:radial-gradient(circle at top, rgba(56,189,248,.25), rgba(15,23,42,.98));
+    }
+    .reveal{
+      opacity:0;
+      transform:translateY(38px);
+      filter:blur(4px);
+      transition:all .85s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    .reveal.show{
+      opacity:1;
+      transform:translateY(0);
+      filter:blur(0);
+    }
+    .delay-1{transition-delay:.1s;}
+    .delay-2{transition-delay:.2s;}
+    .delay-3{transition-delay:.3s;}
+    .delay-4{transition-delay:.4s;}
+    .grid-bg{
+      background-image:
+        linear-gradient(rgba(148,163,184,.25) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148,163,184,.25) 1px, transparent 1px);
+      background-size:48px 48px;
+      mask-image:radial-gradient(circle at center, black 40%, transparent 80%);
+      opacity:.28;
+    }
+    #bg3d{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      pointer-events:none;
+    }
+    .hero-orbit{
+      position:absolute;
+      right:-140px;
+      top:40px;
+      width:460px;
+      height:460px;
+      border-radius:50%;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(56,189,248,.28), transparent 60%),
+        radial-gradient(circle at 80% 70%, rgba(139,92,246,.32), transparent 65%);
+      filter:blur(20px);
+      opacity:.9;
+      animation:slowOrbit 18s linear infinite alternate;
+    }
+    @keyframes slowOrbit{
+      0%{transform:translate3d(0,0,0);}
+      50%{transform:translate3d(-40px,-20px,0);}
+      100%{transform:translate3d(-15px,30px,0);}
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:11px;
+      border:1px solid rgba(148,163,184,.4);
+      background:rgba(15,23,42,.9);
+      color:#cbd5e1;
+    }
+    .pill-dot{
+      width:7px;
+      height:7px;
+      border-radius:999px;
+      background:radial-gradient(circle, #22c55e, #16a34a);
+      box-shadow:0 0 10px rgba(34,197,94,.8);
+    }
+    .chip{
+      padding:5px 11px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.45);
+      font-size:11px;
+      color:#cbd5e1;
+      background:rgba(15,23,42,.9);
+    }
+    .chip span{
+      width:6px;
+      height:6px;
+      border-radius:999px;
+      display:inline-block;
+      margin-right:6px;
+    }
+    .tag{
+      font-size:11px;
+      padding:4px 9px;
+      border-radius:999px;
+      background:rgba(15,23,42,.9);
+      border:1px solid rgba(148,163,184,.45);
+      color:#cbd5e1;
+    }
+    .category-pill{
+      border-radius:999px;
+      padding:7px 14px;
+      border:1px solid rgba(148,163,184,.45);
+      font-size:12px;
+      cursor:pointer;
+      background:rgba(15,23,42,.9);
+      color:#e5e7eb;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      transition:.2s ease;
+    }
+    .category-pill.active{
+      border-color:rgba(56,189,248,1);
+      background:radial-gradient(circle at left, rgba(56,189,248,.4), rgba(15,23,42,.96));
+      box-shadow:0 0 24px rgba(56,189,248,.7);
+    }
+    .category-pill-dot{
+      width:7px;
+      height:7px;
+      border-radius:999px;
+      background:radial-gradient(circle, #38bdf8, #0ea5e9);
+      box-shadow:0 0 12px rgba(56,189,248,1);
+    }
+  </style>
+</head>
+<body>
+  <!-- 3D background -->
+  <div id="bg3d"></div>
+
+  <!-- Navbar -->
+  <header class="fixed top-0 left-0 w-full z-40 glass">
+    <div class="container px-5 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-2xl bg-cyan-400/10 flex items-center justify-center border border-cyan-400/40">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,1)]"></span>
+        </div>
+        <div>
+          <h1 class="text-xl font-black gradient-text">CyberTech</h1>
+          <p class="text-[11px] text-slate-400 tracking-wide">Software & Cybersecurity Studio</p>
+        </div>
+      </div>
+
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex items-center gap-6 text-xs">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="about.html">About</a>
+        <a class="nav-link" href="services.html">Services</a>
+        <a class="nav-link" href="packages.html">Packages</a>
+        <a class="nav-link" href="ccontct.html">Contact</a>
+        <button class="btn" onclick="window.location.href='index.html#contact'">
+          Send a message
+        </button>
+      </nav>
+
+      <!-- Mobile menu button -->
+      <button
+        id="mobileMenuBtn"
+        class="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-xl border border-white/15 bg-slate-900/80 text-slate-100"
+        aria-label="Toggle navigation"
+      >
+        <svg id="iconOpen" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
+                d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="iconClose" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
+                d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile nav panel -->
+    <nav
+      id="mobileMenu"
+      class="md:hidden max-h-0 overflow-hidden transition-all duration-300 ease-out border-t border-white/10 bg-slate-950/95 backdrop-blur-xl"
+    >
+      <div class="container px-5 py-3 flex flex-col gap-2 text-xs">
+        <a class="nav-link py-1" href="index.html">Home</a>
+        <a class="nav-link py-1" href="about.html">About</a>
+        <a class="nav-link py-1" href="services.html">Services</a>
+        <a class="nav-link py-1" href="packages.html">Packages</a>
+        <a class="nav-link py-1" href="ccontct.html">Contact</a>
+        <button
+          class="btn mt-2 w-full justify-center"
+          onclick="window.location.href='index.html#contact'"
+        >
+          Send a message
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="pt-28">
+    <!-- Hero -->
+    <section class="section min-h-[80vh] flex items-center">
+      <div class="container grid lg:grid-cols-[1.5fr_1fr] gap-12 items-center">
+        <div class="relative reveal delay-1">
+          <div class="hero-orbit"></div>
+          <span class="pill mb-5">
+            <span class="pill-dot"></span>
+            <span>Services made for serious teams</span>
+          </span>
+          <h2 class="text-4xl md:text-6xl font-black leading-tight">
+            One studio for <span class="gradient-text">software builds</span> and <span class="gradient-text">cyber defense</span>.
+          </h2>
+          <p class="mt-5 text-slate-300 text-base md:text-lg max-w-2xl">
+            We design, build, and secure digital products—from first idea to deployed infrastructure—so you can move faster without losing control or safety.
+          </p>
+          <div class="mt-7 flex flex-wrap gap-3 text-xs">
+            <div class="chip"><span style="background:#22c55e"></span>Secure by design</div>
+            <div class="chip"><span style="background:#38bdf8"></span>Front‑end & full‑stack</div>
+            <div class="chip"><span style="background:#8b5cf6"></span>Cloud & DevOps</div>
+          </div>
+        </div>
+
+        <div class="reveal delay-2">
+          <div class="glass-strong rounded-[26px] p-6 card-3d">
+            <div class="grid-bg absolute inset-0 rounded-[26px] opacity-40"></div>
+            <div class="relative space-y-5 text-xs text-slate-300">
+              <div class="flex items-center justify-between">
+                <p class="section-label">SERVICE SNAPSHOT</p>
+                <span class="tag border-emerald-400/50 text-emerald-300">Available</span>
+              </div>
+              <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                  <span>Product & web builds</span>
+                  <span class="font-semibold text-slate-100">Included</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span>Security implementation</span>
+                  <span class="font-semibold text-slate-100">Included</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span>Ongoing support</span>
+                  <span class="font-semibold text-slate-100">Optional</span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3 mt-3">
+                <div class="glass rounded-2xl p-4">
+                  <p class="text-[11px] text-slate-400 mb-1">Ideal for</p>
+                  <p class="font-semibold">Teams that want a single partner for product and security.</p>
+                </div>
+                <div class="glass rounded-2xl p-4">
+                  <p class="text-[11px] text-slate-400 mb-1">Engagement</p>
+                  <p class="font-semibold">Projects, retainers, or audits only.</p>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between pt-1">
+                <a href="#services" class="btn">
+                  View detailed services
+                </a>
+                <button class="btn-outline" onclick="location.href='index.html#contact'">
+                  Quick intro call
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section id="services" class="section">
+      <div class="container">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-8">
+          <div class="reveal delay-1">
+            <p class="section-label mb-2">SERVICE AREAS</p>
+            <h3 class="text-3xl md:text-4xl font-bold">Three pillars that cover your stack.</h3>
+          </div>
+          <p class="reveal delay-2 text-slate-400 max-w-md text-sm">
+            Organized so buyers can quickly understand what you do and where you add value—clear buckets help scanning and decision‑making.
+          </p>
+        </div>
+
+        <!-- Category selector -->
+        <div class="flex flex-wrap gap-3 mb-8 reveal delay-2">
+          <button class="category-pill active" data-category="all">
+            <span class="category-pill-dot"></span>
+            All services
+          </button>
+          <button class="category-pill" data-category="software">
+            <span class="category-pill-dot"></span>
+            Software development
+          </button>
+          <button class="category-pill" data-category="security">
+            <span class="category-pill-dot"></span>
+            Cybersecurity
+          </button>
+          <button class="category-pill" data-category="cloud">
+            <span class="category-pill-dot"></span>
+            Cloud & DevOps
+          </button>
+        </div>
+
+        <!-- Cards grid -->
+        <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <!-- Software 1 -->
+          <article class="glass rounded-[24px] p-6 card-3d reveal delay-1 service-card" data-type="software">
+            <p class="text-xs text-cyan-300 mb-2 font-medium">Software • Front‑end & back‑end</p>
+            <h4 class="text-xl font-semibold mb-2">Web product development</h4>
+            <p class="text-sm text-slate-300 mb-4">
+              Full web apps, dashboards, and portals with clean UI, strong architecture, and fast performance.
+            </p>
+            <ul class="text-[12px] text-slate-400 space-y-1 mb-3">
+              <li>• Single‑page apps and multi‑page platforms</li>
+              <li>• Admin dashboards and internal tools</li>
+              <li>• API integration and data visualization</li>
+            </ul>
+            <div class="flex flex-wrap gap-2 text-[11px]">
+              <span class="tag">React / Next.js</span>
+              <span class="tag">Node / APIs</span>
+              <span class="tag">Design systems</span>
+            </div>
+          </article>
+
+          <!-- Software 2 -->
+          <article class="glass rounded-[24px] p-6 card-3d reveal delay-2 service-card" data-type="software">
+            <p class="text-xs text-cyan-300 mb-2 font-medium">Software • Interfaces</p>
+            <h4 class="text-xl font-semibold mb-2">UI/UX & interaction design</h4>
+            <p class="text-sm text-slate-300 mb-4">
+              Product design with 3D‑style motion, animations, and layouts that feel modern and professional.
+            </p>
+            <ul class="text-[12px] text-slate-400 space-y-1 mb-3">
+              <li>• Wireframes, high‑fidelity designs, and prototypes</li>
+              <li>• Motion design for micro‑interactions</li>
+              <li>• Design systems and component libraries</li>
+            </ul>
+            <div class="flex flex-wrap gap-2 text-[11px]">
+              <span class="tag">Design systems</span>
+              <span class="tag">Prototyping</span>
+              <span class="tag">3D‑style UI</span>
+            </div>
+          </article>
+
+          <!-- Security 1 -->
+          <article class="glass rounded-[24px] p-6 card-3d reveal delay-3 service-card" data-type="security">
+            <p class="text-xs text-emerald-300 mb-2 font-medium">Security • Prevention</p>
+            <h4 class="text-xl font-semibold mb-2">Security reviews & hardening</h4>
+            <p class="text-sm text-slate-300 mb-4">
+              We audit your product, identify weak points, and implement fixes before attackers do.
+            </p>
+            <ul class="text-[12px] text-slate-400 space-y-1 mb-3">
+              <li>• Threat modeling & risk assessment</li>
+              <li>• OWASP‑style application review</li>
+              <li>• Access control and secure configuration</li>
+            </ul>
+            <div class="flex flex-wrap gap-2 text-[11px]">
+              <span class="tag">Application security</span>
+              <span class="tag">Best practices</span>
+              <span class="tag">Hardened setups</span>
+            </div>
+          </article>
+
+          <!-- Security 2 -->
+          <article class="glass rounded-[24px] p-6 card-3d reveal delay-4 service-card" data-type="security">
+            <p class="text-xs text-emerald-300 mb-2 font-medium">Security • Response</p>
+            <h4 class="text-xl font-semibold mb-2">Monitoring & incident response</h4>
+            <p class="text-sm text-slate-300 mb-4">
+              When something looks wrong, you get visibility and a clear plan—not panic.
+            </p>
+            <ul class="text-[12px] text-slate-400 space-y-1 mb-3">
+              <li>• Log and alert setup</li>
+              <li>• Playbooks for security events</li>
+              <li>• Support during active incidents</li>
+            </ul>
+            <div class="flex flex-wrap gap-2 text-[11px]">
+              <span class="tag">Alerting</span>
+              <span class="tag">Runbooks</span>
+              <span class="tag">24/7 mindset</span>
+            </div>
+          </article>
+
+          <!-- Cloud 1 -->
+          <article class="glass rounded-[24px] p-6 card-3d reveal delay-2 service-card" data-type="cloud">
+            <p class="text-xs text-sky-300 mb-2 font-medium">Cloud • Infrastructure</p>
+            <h4 class="text-xl font-semibold mb-2">Cloud architecture & deployment</h4>
+            <p class="text-sm text-slate-300 mb-4">
+              We design and deploy cloud environments tuned for your product: secure, scalable, and observable.
+            </p>
+            <ul class="text-[12px] text-slate-400 space-y-1 mb-3">
+              <li>• Environment setup (staging, production)</li>
+              <li>• CI/CD pipelines & automated deployments</li>
+              <li>• Monitoring and health dashboards</li>
+            </ul>
+            <div class="flex flex-wrap gap-2 text-[11px]">
+              <span class="tag">CI/CD</span>
+              <span class="tag">Observability</span>
+              <span class="tag">Cloud security</span>
+            </div>
+          </article>
+
+          <!-- Cloud 2 / Consulting -->
+          <article class="glass rounded-[24px] p-6 card-3d reveal delay-3 service-card" data-type="cloud">
+            <p class="text-xs text-sky-300 mb-2 font-medium">Strategy • Consulting</p>
+            <h4 class="text-xl font-semibold mb-2">Technical guidance & roadmaps</h4>
+            <p class="text-sm text-slate-300 mb-4">
+              For teams that want a clear technical roadmap, trade‑off discussions, and a long‑term partner.
+            </p>
+            <ul class="text:[12px] text-slate-400 space-y-1 mb-3">
+              <li>• Architecture & stack decisions</li>
+              <li>• Migration plans and re‑platforming</li>
+              <li>• Security and compliance planning</li>
+            </ul>
+            <div class="flex flex-wrap gap-2 text-[11px]">
+              <span class="tag">Architecture</span>
+              <span class="tag">Planning</span>
+              <span class="tag">Advisory</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section id="process" class="section">
+      <div class="container grid lg:grid-cols-2 gap-10 items-start">
+        <div class="reveal delay-1">
+          <p class="section-label mb-2">HOW PROJECTS RUN</p>
+          <h3 class="text-3xl md:text-4xl font-bold mb-4">A calm, clear process from idea to launch.</h3>
+          <p class="text-slate-300 leading-7 mb-4">
+            Buyers care a lot about how you work, not just what you offer. A concise, step‑based outline makes it easier to trust your process.
+          </p>
+          <p class="text-slate-400 text-sm">
+            Whether we build a new product or review a critical system, you always know what step we are in and what comes next.
+          </p>
+        </div>
+
+        <div class="reveal delay-2">
+          <div class="glass-strong rounded-[26px] p-6 card-3d">
+            <ol class="space-y-4 text-sm text-slate-300">
+              <li>
+                <span class="font-semibold text-slate-100">1. Discover & align</span>
+                <p class="text-slate-400 mt-1">We map your goals, constraints, and current systems so we solve the right problems.</p>
+              </li>
+              <li>
+                <span class="font-semibold text-slate-100">2. Design & architecture</span>
+                <p class="text-slate-400 mt-1">Flows, UI, and technical plans come together into a clear, documented blueprint.</p>
+              </li>
+              <li>
+                <span class="font-semibold text-slate-100">3. Build & secure</span>
+                <p class="text-slate-400 mt-1">We implement, test, and harden the solution with security baked into every step.</p>
+              </li>
+              <li>
+                <span class="font-semibold text-slate-100">4. Launch & support</span>
+                <p class="text-slate-400 mt-1">We ship, monitor, and adjust based on real usage, with optional long‑term support.</p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Packages -->
+    <section id="packages" class="section">
+      <div class="container">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-8">
+          <div class="reveal delay-1">
+            <p class="section-label mb-2">ENGAGEMENT OPTIONS</p>
+            <h3 class="text-3xl md:text-4xl font-bold">Choose how deep you want to go.</h3>
+          </div>
+          <p class="reveal delay-2 text-slate-400 max-w-md text-sm">
+            Structured options make it easier to start—clients can see what’s included at a glance.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- Package 1 -->
+          <div class="glass rounded-[26px] p-6 card-3d reveal delay-1">
+            <p class="text-xs text-slate-300 mb-2 font-medium">Starter</p>
+            <h4 class="text-xl font-semibold mb-1">Audit & direction</h4>
+            <p class="text-sm text-slate-300 mb-4">
+              Best for teams that need clarity on their current setup and next moves.
+            </p>
+            <ul class="text-[12px] text-slate-400 space-y-1 mb-4">
+              <li>• Codebase or infrastructure review</li>
+              <li>• Security and UX quick scan</li>
+              <li>• Prioritized action plan</li>
+            </ul>
+            <button class="btn w-full" onclick="location.href='index.html#contact'">Request audit</button>
+          </div>
+
+          <!-- Package 2 -->
+          <div class="glass rounded-[26px] p-6 card-3d reveal delay-2">
+            <p class="text-xs text-cyan-300 mb-2 font-medium">Core</p>
+            <h4 class="text-xl font-semibold mb-1">End‑to‑end build</h4>
+            <p class="text-sm text-slate-300 mb-4">
+              Full project execution from concept to launch for one main product.
+            </p>
+            <ul class="text-[12px] text-slate-400 space-y-1 mb-4">
+              <li>• Design, build, and deploy</li>
+              <li>• Integrated security and monitoring</li>
+              <li>• Knowledge hand‑off and docs</li>
+            </ul>
+            <button class="btn w-full" onclick="location.href='index.html#contact'">Discuss a project</button>
+          </div>
+
+          <!-- Package 3 -->
+          <div class="glass rounded-[26px] p-6 card-3d reveal delay-3">
+            <p class="text-xs text-violet-300 mb-2 font-medium">Partner</p>
+            <h4 class="text-xl font-semibold mb-1">Ongoing support</h4>
+            <p class="text-sm text-slate-300 mb-4">
+              For teams that want a long‑term partner for product and security work.
+            </p>
+            <ul class="text-[12px] text-slate-400 space-y-1 mb-4">
+              <li>• Monthly design & dev capacity</li>
+              <li>• Regular security checks</li>
+              <li>• Priority support and reviews</li>
+            </ul>
+            <button class="btn w-full" onclick="location.href='index.html#contact'">Talk about retainer</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section pb-20">
+      <div class="container grid lg:grid-cols-[1.5fr_1fr] gap-10 items-center">
+        <div class="reveal delay-1">
+          <p class="section-label mb-2">READY WHEN YOU ARE</p>
+          <h3 class="text-3xl md:text-4xl font-bold mb-4">Tell us what you want to build or secure.</h3>
+          <p class="text-slate-300 mb-5">
+            One short message is enough to start. We’ll respond with a simple, clear suggestion on the best service and next steps.
+          </p>
+          <div class="flex flex-wrap gap-4 text-xs">
+            <button class="btn" onclick="location.href='index.html#contact'">Open contact form</button>
+            <button class="btn-outline" onclick="location.href='about.html'">See who you’ll work with</button>
+          </div>
+        </div>
+        <div class="reveal delay-2">
+          <div class="glass-strong rounded-[26px] p-5 text-sm card-3d">
+            <p class="section-label mb-3">TYPICAL REQUESTS</p>
+            <ul class="space-y-2 text-slate-300">
+              <li>• “We need a dashboard for our internal data.”</li>
+              <li>• “We want our site to look as premium as our product.”</li>
+              <li>• “We need to review security before a big launch.”</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="section pt-16 pb-10 border-t border-white/10">
+    <div class="container grid md:grid-cols-3 gap-8">
+      <div>
+        <h4 class="text-2xl font-black gradient-text">CyberTech</h4>
+        <p class="text-slate-400 mt-3">Software development and cybersecurity solutions for modern businesses.</p>
+      </div>
+      <div>
+        <h5 class="font-bold mb-3">Quick Links</h5>
+        <div class="space-y-2 text-slate-400">
+          <a class="block hover:text-white" href="about.html">About</a>
+          <a class="block hover:text-white" href="#services">Services</a>
+          <a class="block hover:text-white" href="#contact">Contact</a>
+        </div>
+      </div>
+      <div>
+        <h5 class="font-bold mb-3">Contact</h5>
+        <p class="text-slate-400">info@cybertech.com</p>
+        <p class="text-slate-400">+92 300 1234567</p>
+        <p class="text-slate-400">Sahiwal, Punjab, Pakistan</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Three.js background + scroll + filter + mobile nav -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    // 3D background
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    document.getElementById('bg3d').appendChild(renderer.domElement);
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    const core = new THREE.Mesh(
+      new THREE.IcosahedronGeometry(7, 1),
+      new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true, transparent: true, opacity: 0.35 })
+    );
+
+    const ring = new THREE.Mesh(
+      new THREE.TorusGeometry(12, 0.5, 16, 160),
+      new THREE.MeshBasicMaterial({ color: 0x8b5cf6, wireframe: true, transparent: true, opacity: 0.55 })
+    );
+
+    group.add(core);
+    group.add(ring);
+    camera.position.z = 32;
+
+    function animate(){
+      requestAnimationFrame(animate);
+      group.rotation.x += 0.002;
+      group.rotation.y += 0.003;
+      core.rotation.y += 0.004;
+      ring.rotation.x -= 0.002;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // mouse parallax
+    document.addEventListener('mousemove', (e)=>{
+      const x = (e.clientX / window.innerWidth) - 0.5;
+      const y = (e.clientY / window.innerHeight) - 0.5;
+      group.rotation.y += x * 0.0009;
+      group.rotation.x += y * 0.0009;
+    });
+
+    // resize
+    window.addEventListener('resize', ()=>{
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // scroll reveal
+    const observer = new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+        }
+      });
+    },{threshold:0.18});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    // category filter
+    const pills = document.querySelectorAll('.category-pill');
+    const cards = document.querySelectorAll('.service-card');
+
+    pills.forEach(pill=>{
+      pill.addEventListener('click', ()=>{
+        const category = pill.dataset.category;
+        pills.forEach(p=>p.classList.remove('active'));
+        pill.classList.add('active');
+
+        cards.forEach(card=>{
+          const type = card.dataset.type;
+          if(category === 'all' || type === category){
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+            card.style.pointerEvents = 'auto';
+          } else {
+            card.style.opacity = '0.1';
+            card.style.transform = 'scale(0.97)';
+            card.style.pointerEvents = 'none';
+          }
+        });
+      });
+    });
+
+    // mobile nav toggle
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const iconOpen = document.getElementById('iconOpen');
+    const iconClose = document.getElementById('iconClose');
+
+    mobileBtn.addEventListener('click', ()=>{
+      const isOpen = mobileMenu.style.maxHeight && mobileMenu.style.maxHeight !== '0px';
+      if(isOpen){
+        mobileMenu.style.maxHeight = '0px';
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+      }else{
+        mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+        iconOpen.classList.add('hidden');
+        iconClose.classList.remove('hidden');
+      }
+    });
+
+    // close mobile menu when clicking a link
+    mobileMenu.querySelectorAll('a').forEach(link=>{
+      link.addEventListener('click', ()=>{
+        mobileMenu.style.maxHeight = '0px';
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+      });
+    });
+  </script>
+</body>
+</html>
