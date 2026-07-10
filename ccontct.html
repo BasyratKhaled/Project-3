@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | CyberTech Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{
+      --bg:#05060a;
+      --panel:rgba(255,255,255,.06);
+      --panel2:rgba(255,255,255,.09);
+      --border:rgba(255,255,255,.12);
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --accent:#38bdf8;
+      --accent2:#8b5cf6;
+      --accent3:#22c55e;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:'Inter',sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(56,189,248,.12), transparent 35%),
+        radial-gradient(circle at right, rgba(139,92,246,.10), transparent 30%),
+        var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+    .glass{
+      background:var(--panel);
+      border:1px solid var(--border);
+      backdrop-filter:blur(18px);
+      box-shadow:0 20px 60px rgba(0,0,0,.4);
+    }
+    .glass-strong{
+      background:var(--panel2);
+      border:1px solid rgba(255,255,255,.16);
+      backdrop-filter:blur(22px);
+      box-shadow:0 30px 90px rgba(0,0,0,.6);
+    }
+    .gradient-text{
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+    .section{
+      position:relative;
+      padding:110px 20px 90px;
+    }
+    .container{
+      max-width:1200px;
+      margin:0 auto;
+    }
+    .nav-link{
+      color:#cbd5e1;
+      transition:.25s ease;
+      font-size:12px;
+    }
+    .nav-link:hover{color:white}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:10px 20px;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      color:white;
+      font-weight:600;
+      font-size:13px;
+      border:none;
+      cursor:pointer;
+      transition:transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+      box-shadow:0 14px 30px rgba(15,23,42,.6);
+    }
+    .btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 18px 40px rgba(15,23,42,.8);
+      opacity:.97;
+    }
+    .btn-ghost{
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.45);
+      background:rgba(15,23,42,.9);
+      color:#e5e7eb;
+      padding:9px 18px;
+      font-size:13px;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      transition:.2s ease;
+    }
+    .btn-ghost:hover{
+      border-color:rgba(56,189,248,.8);
+      color:white;
+      box-shadow:0 8px 26px rgba(15,23,42,.8);
+    }
+    .section-label{
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-size:11px;
+      color:#9ca3af;
+    }
+    .input{
+      width:100%;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(148,163,184,.5);
+      background:rgba(15,23,42,.96);
+      color:#e5e7eb;
+      font-size:13px;
+      outline:none;
+      transition:border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .input::placeholder{color:#6b7280;}
+    .input:focus{
+      border-color:rgba(56,189,248,.9);
+      box-shadow:0 0 0 2px rgba(56,189,248,.3);
+      background:rgba(15,23,42,1);
+    }
+    .reveal{
+      opacity:0;
+      transform:translateY(34px);
+      filter:blur(4px);
+      transition:all .8s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    .reveal.show{
+      opacity:1;
+      transform:translateY(0);
+      filter:blur(0);
+    }
+    .delay-1{transition-delay:.1s;}
+    .delay-2{transition-delay:.2s;}
+    .delay-3{transition-delay:.3s;}
+    .delay-4{transition-delay:.4s;}
+    #bg3d{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      pointer-events:none;
+    }
+    .hero-orbit{
+      position:absolute;
+      right:-150px;
+      top:40px;
+      width:480px;
+      height:480px;
+      border-radius:50%;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(56,189,248,.28), transparent 60%),
+        radial-gradient(circle at 80% 70%, rgba(139,92,246,.32), transparent 65%);
+      filter:blur(20px);
+      opacity:.9;
+      animation:slowOrbit 18s linear infinite alternate;
+    }
+    @keyframes slowOrbit{
+      0%{transform:translate3d(0,0,0);}
+      50%{transform:translate3d(-40px,-20px,0);}
+      100%{transform:translate3d(-15px,30px,0);}
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:11px;
+      border:1px solid rgba(148,163,184,.4);
+      background:rgba(15,23,42,.9);
+      color:#cbd5e1;
+    }
+    .pill-dot{
+      width:7px;
+      height:7px;
+      border-radius:999px;
+      background:radial-gradient(circle, #22c55e, #16a34a);
+      box-shadow:0 0 10px rgba(34,197,94,.8);
+    }
+    .info-pill{
+      font-size:11px;
+      padding:5px 10px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.45);
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      background:rgba(15,23,42,.9);
+      color:#cbd5e1;
+    }
+    .info-dot{
+      width:6px;
+      height:6px;
+      border-radius:999px;
+      background:#38bdf8;
+      box-shadow:0 0 10px rgba(56,189,248,1);
+    }
+    .grid-bg{
+      background-image:
+        linear-gradient(rgba(148,163,184,.25) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148,163,184,.25) 1px, transparent 1px);
+      background-size:48px 48px;
+      mask-image:radial-gradient(circle at center, black 40%, transparent 80%);
+      opacity:.28;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:3px 8px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.5);
+      font-size:10px;
+      color:#cbd5e1;
+      background:rgba(15,23,42,.9);
+    }
+    .contact-link{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid rgba(148,163,184,.4);
+      background:rgba(15,23,42,.98);
+      font-size:12px;
+      color:#e5e7eb;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+    .contact-link span:first-child{opacity:.9;}
+    .contact-link small{color:#9ca3af;}
+    .contact-link:hover{
+      border-color:rgba(56,189,248,.9);
+      box-shadow:0 12px 34px rgba(15,23,42,.9);
+      transform:translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <!-- 3D background -->
+  <div id="bg3d"></div>
+
+  <!-- Navbar -->
+  <header class="fixed top-0 left-0 w-full z-40 glass">
+    <div class="container px-5 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-2xl bg-cyan-400/10 flex items-center justify-center border border-cyan-400/40">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,1)]"></span>
+        </div>
+        <div>
+          <h1 class="text-xl font-black gradient-text">CyberTech</h1>
+          <p class="text-[11px] text-slate-400 tracking-wide">Software & Cybersecurity Studio</p>
+        </div>
+      </div>
+
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex items-center gap-6 text-xs">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="packages.html" class="nav-link">Packages</a>
+        <a href="ccontct.html" class="nav-link">Contact</a>
+        <button class="btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+          Send a message
+        </button>
+      </nav>
+
+      <!-- Mobile menu button -->
+      <button
+        id="mobileMenuBtn"
+        class="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-xl border border-white/15 bg-slate-900/80 text-slate-100"
+        aria-label="Toggle navigation"
+      >
+        <svg id="iconOpen" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
+                d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="iconClose" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
+                d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile nav panel -->
+    <nav
+      id="mobileMenu"
+      class="md:hidden max-h-0 overflow-hidden transition-all duration-300 ease-out border-t border-white/10 bg-slate-950/95 backdrop-blur-xl"
+    >
+      <div class="container px-5 py-3 flex flex-col gap-2 text-xs">
+        <a href="index.html" class="nav-link py-1">Home</a>
+        <a href="about.html" class="nav-link py-1">About</a>
+        <a href="services.html" class="nav-link py-1">Services</a>
+        <a href="packages.html" class="nav-link py-1">Packages</a>
+        <a href="ccontct.html" class="nav-link py-1">Contact</a>
+        <button
+          class="btn mt-2 w-full justify-center"
+          onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"
+        >
+          Send a message
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="pt-28">
+    <!-- Hero -->
+    <section class="section min-h-[75vh] flex items-center">
+      <div class="container grid lg:grid-cols-[1.4fr_1fr] gap-12 items-center">
+        <div class="relative reveal delay-1">
+          <div class="hero-orbit"></div>
+          <span class="pill mb-5">
+            <span class="pill-dot"></span>
+            <span>Contact the studio</span>
+          </span>
+          <h2 class="text-4xl md:text-6xl font-black leading-tight">
+            Tell us what you want to <span class="gradient-text">build</span> or <span class="gradient-text">secure</span>.
+          </h2>
+          <p class="mt-5 text-slate-300 text-base md:text-lg max-w-2xl">
+            Use this page to talk about a new project, a security concern, or just to ask questions about how we work. 
+            We read every message carefully.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3 text-xs">
+            <span class="info-pill">
+              <span class="info-dot"></span>
+              Response time: within 1 business day
+            </span>
+            <span class="info-pill">
+              <span class="info-dot" style="background:#22c55e;box-shadow:0 0 10px rgba(34,197,94,1);"></span>
+              You’ll reach a real person, not a bot
+            </span>
+          </div>
+        </div>
+
+        <div class="reveal delay-2">
+          <div class="glass-strong rounded-[26px] p-6 card-3d relative overflow-hidden">
+            <div class="grid-bg absolute inset-0 rounded-[26px] opacity-40"></div>
+            <div class="relative text-xs text-slate-300 space-y-3">
+              <p class="section-label mb-1">QUICK CONTACT</p>
+              <div class="space-y-2">
+                <button class="contact-link" onclick="window.location.href='mailto:info@cybertech.com'">
+                  <span>info@cybertech.com</span>
+                </button>
+                <button class="contact-link" onclick="window.location.href='tel:+923001234567'">
+                  <span>+92 300 1234567</span> 
+                </button>
+                <div class="contact-link" onclick="document.getElementById('location').scrollIntoView({behavior:'smooth'})">
+                  <span>Sahiwal, Punjab, Pakistan</span>
+                  <small>Office location</small>
+                </div>
+              </div>
+              <p class="text-[11px] text-slate-400 mt-2">
+                Prefer a form? Fill in the details below—we’ll reply with a short, clear email and suggested next steps.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact form -->
+    <section id="contact" class="section">
+      <div class="container grid lg:grid-cols-2 gap-10 items-start">
+        <div class="reveal delay-1">
+          <p class="section-label mb-2">CONTACT FORM</p>
+          <h3 class="text-3xl md:text-4xl font-bold mb-3">Share a bit of context.</h3>
+          <p class="text-slate-300 text-sm md:text-base mb-4">
+            The more specific you are, the easier it is for us to respond with something useful. 
+            You don’t need a full brief—just explain what you want to achieve.
+          </p>
+          <ul class="text-xs text-slate-400 space-y-1 mb-4">
+            <li>• New product / feature you want to build</li>
+            <li>• Security issues or questions</li>
+            <li>• Timelines, budget range, and any constraints</li>
+          </ul>
+        </div>
+
+        <div class="reveal delay-2">
+          <div class="glass-strong rounded-[26px] p-6 card-3d">
+            <form id="contactForm" class="space-y-3 text-xs">
+              <div class="grid md:grid-cols-2 gap-3">
+                <div>
+                  <label class="block mb-1 text-slate-300">Full name</label>
+                  <input class="input" type="text" name="name" placeholder="Your name" required />
+                </div>
+                <div>
+                  <label class="block mb-1 text-slate-300">Email address</label>
+                  <input class="input" type="email" name="email" placeholder="name@company.com" required />
+                </div>
+              </div>
+              <div class="grid md:grid-cols-2 gap-3">
+                <div>
+                  <label class="block mb-1 text-slate-300">Company (optional)</label>
+                  <input class="input" type="text" name="company" placeholder="Your company" />
+                </div>
+                <div>
+                  <label class="block mb-1 text-slate-300">Topic</label>
+                  <select class="input" name="topic" required>
+                    <option value="" disabled selected hidden>Select a topic</option>
+                    <option value="new-project">New project</option>
+                    <option value="security">Security question</option>
+                    <option value="support">Support / existing work</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label class="block mb-1 text-slate-300">What do you have in mind?</label>
+                <textarea class="input" name="message" rows="4" placeholder="Tell us about your idea, goals, or security concerns..." required></textarea>
+              </div>
+              <div>
+                <label class="block mb-1 text-slate-300">Rough budget range (optional)</label>
+                <select class="input" name="budget">
+                  <option value="" selected>No specific range yet</option>
+                  <option value="1-3">$1k – $3k</option>
+                  <option value="3-7">$3k – $7k</option>
+                  <option value="7-15">$7k – $15k</option>
+                  <option value="15+">$15k+</option>
+                </select>
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                  <input type="checkbox" id="newsletter" class="w-3.5 h-3.5 rounded border border-slate-500 bg-slate-900" />
+                  <label for="newsletter">Send me occasional updates (no spam).</label>
+                </div>
+                <button type="submit" class="btn">
+                  Send message
+                </button>
+              </div>
+              <p class="text-[10px] text-slate-500 mt-1">
+                By sending this form you agree that we can store your details to reply to your message. No mailing lists unless you tick the box.
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Location & hours -->
+    <section id="location" class="section pb-20">
+      <div class="container grid lg:grid-cols-2 gap-10 items-start">
+        <div class="reveal delay-1">
+          <p class="section-label mb-2">OFFICE & HOURS</p>
+          <h3 class="text-3xl md:text-4xl font-bold mb-3">Where and when you can reach us.</h3>
+          <p class="text-slate-300 text-sm md:text-base mb-4">
+            We work remotely with clients in different time zones, but it often helps to know there’s a real place behind the pixels.
+          </p>
+          <div class="space-y-3 text-sm">
+            <div class="glass rounded-[18px] p-4">
+              <p class="text-slate-400 text-xs mb-1">Office</p>
+              <p class="font-semibold">CyberTech Solutions</p>
+              <p class="text-slate-300 text-xs mt-1">Sahiwal, Punjab, Pakistan</p>
+            </div>
+            <div class="glass rounded-[18px] p-4">
+              <p class="text-slate-400 text-xs mb-1">Business hours</p>
+              <p class="text-slate-300 text-xs">Monday – Saturday, 9:00 AM – 7:00 PM (PKT)</p>
+              <p class="text-slate-500 text-[11px] mt-1">We reply to most messages within one business day.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal delay-2">
+          <div class="glass-strong rounded-[26px] overflow-hidden card-3d">
+            <iframe
+              src="https://www.google.com/maps?q=Sahiwal,Punjab,Pakistan&output=embed"
+              width="100%"
+              height="320"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="section pt-16 pb-10 border-t border-white/10">
+    <div class="container grid md:grid-cols-3 gap-8">
+      <div>
+        <h4 class="text-2xl font-black gradient-text">CyberTech</h4>
+        <p class="text-slate-400 mt-3">Software development and cybersecurity solutions for modern businesses.</p>
+      </div>
+      <div>
+        <h5 class="font-bold mb-3">Quick Links</h5>
+        <div class="space-y-2 text-slate-400">
+          <a class="block hover:text-white" href="about.html">About</a>
+          <a class="block hover:text-white" href="services.html">Services</a>
+          <a class="block hover:text-white" href="#contact">Contact</a>
+        </div>
+      </div>
+      <div>
+        <h5 class="font-bold mb-3">Contact</h5>
+        <p class="text-slate-400">info@cybertech.com</p>
+        <p class="text-slate-400">+92 300 1234567</p>
+        <p class="text-slate-400">Sahiwal, Punjab, Pakistan</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Three.js background + scroll + form handler + mobile nav -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    // 3D background
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    document.getElementById('bg3d').appendChild(renderer.domElement);
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    const core = new THREE.Mesh(
+      new THREE.DodecahedronGeometry(7, 1),
+      new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true, transparent: true, opacity: 0.35 })
+    );
+    const ring = new THREE.Mesh(
+      new THREE.TorusKnotGeometry(11, 0.5, 180, 32),
+      new THREE.MeshBasicMaterial({ color: 0x8b5cf6, wireframe: true, transparent: true, opacity: 0.55 })
+    );
+
+    group.add(core);
+    group.add(ring);
+    camera.position.z = 32;
+
+    function animate(){
+      requestAnimationFrame(animate);
+      group.rotation.x += 0.002;
+      group.rotation.y += 0.003;
+      core.rotation.y += 0.004;
+      ring.rotation.x -= 0.002;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // mouse parallax
+    document.addEventListener('mousemove', (e)=>{
+      const x = (e.clientX / window.innerWidth) - 0.5;
+      const y = (e.clientY / window.innerHeight) - 0.5;
+      group.rotation.y += x * 0.0009;
+      group.rotation.x += y * 0.0009;
+    });
+
+    // resize
+    window.addEventListener('resize', ()=>{
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // scroll reveal
+    const observer = new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+        }
+      });
+    },{threshold:0.18});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    // form submit (frontend only)
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', e=>{
+      e.preventDefault();
+      alert('Thank you. Your message has been sent—expect a reply within one business day.');
+      contactForm.reset();
+    });
+
+    // mobile nav toggle
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const iconOpen = document.getElementById('iconOpen');
+    const iconClose = document.getElementById('iconClose');
+
+    mobileBtn.addEventListener('click', ()=>{
+      const isOpen = mobileMenu.style.maxHeight && mobileMenu.style.maxHeight !== '0px';
+      if(isOpen){
+        mobileMenu.style.maxHeight = '0px';
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+      }else{
+        mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+        iconOpen.classList.add('hidden');
+        iconClose.classList.remove('hidden');
+      }
+    });
+
+    // close mobile menu when clicking a link
+    mobileMenu.querySelectorAll('a').forEach(link=>{
+      link.addEventListener('click', ()=>{
+        mobileMenu.style.maxHeight = '0px';
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+      });
+    });
+  </script>
+</body>
+</html>
