@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CyberTech Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{
+      --bg:#05060a;
+      --panel:rgba(255,255,255,.06);
+      --panel2:rgba(255,255,255,.08);
+      --border:rgba(255,255,255,.12);
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --accent:#38bdf8;
+      --accent2:#8b5cf6;
+      --accent3:#22c55e;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:'Inter',sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(56,189,248,.12), transparent 35%),
+        radial-gradient(circle at right, rgba(139,92,246,.10), transparent 30%),
+        var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+    .glass{
+      background:var(--panel);
+      border:1px solid var(--border);
+      backdrop-filter:blur(18px);
+      box-shadow:0 20px 60px rgba(0,0,0,.35);
+    }
+    .glass-strong{
+      background:var(--panel2);
+      border:1px solid rgba(255,255,255,.15);
+      backdrop-filter:blur(22px);
+      box-shadow:0 25px 80px rgba(0,0,0,.45);
+    }
+    .gradient-text{
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+    .section{
+      position:relative;
+      padding:100px 20px;
+    }
+    .container{
+      max-width:1200px;
+      margin:0 auto;
+    }
+    .card-3d{
+      transform-style:preserve-3d;
+      transition:transform .35s ease, box-shadow .35s ease;
+    }
+    .card-3d:hover{
+      transform:perspective(1200px) rotateX(6deg) rotateY(-6deg) translateY(-6px);
+    }
+    .float{
+      animation:float 6s ease-in-out infinite;
+    }
+    @keyframes float{
+      0%,100%{transform:translateY(0px)}
+      50%{transform:translateY(-12px)}
+    }
+    .pulse-ring{
+      animation:pulseRing 2.8s ease-out infinite;
+    }
+    @keyframes pulseRing{
+      0%{transform:scale(.9);opacity:.7}
+      100%{transform:scale(1.8);opacity:0}
+    }
+    .nav-link{
+      color:#cbd5e1;
+      transition:.25s ease;
+    }
+    .nav-link:hover{color:white}
+    .input{
+      width:100%;
+      padding:14px 16px;
+      border-radius:14px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.12);
+      color:white;
+      outline:none;
+    }
+    .input:focus{
+      border-color:rgba(56,189,248,.8);
+      box-shadow:0 0 0 3px rgba(56,189,248,.15);
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:14px 22px;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      color:white;
+      font-weight:700;
+      transition:transform .25s ease, opacity .25s ease;
+      border:none;
+      cursor:pointer;
+    }
+    .btn:hover{transform:translateY(-2px);opacity:.95}
+    .reveal{
+      opacity:0;
+      transform:translateY(30px);
+      transition:all .8s ease;
+    }
+    .reveal.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+    .grid-bg{
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size:60px 60px;
+      mask-image:radial-gradient(circle at center, black 30%, transparent 85%);
+      opacity:.25;
+    }
+    #bg3d{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      pointer-events:none;
+    }
+    .hero-shape{
+      position:absolute;
+      width:380px;
+      height:380px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(56,189,248,.15), transparent 65%);
+      filter:blur(20px);
+      right:-120px;
+      top:100px;
+    }
+
+    /* HEADER & MOBILE NAV */
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 50;
+    }
+
+    /* Hamburger hidden on desktop */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    /* Sidebar base */
+    .mobile-sidebar {
+      position: fixed;
+      top: 0;
+      right: -260px;
+      width: 260px;
+      height: 100vh;
+      background: #020617;
+      box-shadow: -4px 0 20px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      gap: 16px;
+      transition: right 0.3s ease;
+      z-index: 1500;
+    }
+
+    .mobile-sidebar a {
+      color: #e5e7eb;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .close-btn {
+      align-self: flex-end;
+      background: none;
+      border: none;
+      color: #9ca3af;
+      font-size: 24px;
+      cursor: pointer;
+      margin-bottom: 16px;
+    }
+
+    .sidebar-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.7);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1400;
+    }
+
+    .mobile-sidebar.open {
+      right: 0;
+    }
+
+    .sidebar-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="bg3d"></div>
+
+  <!-- HEADER -->
+  <header class="glass">
+    <div class="container px-5 py-4 flex items-center justify-between">
+      <!-- Logo -->
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-2xl bg-cyan-400/10 flex items-center justify-center border border-cyan-400/40">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,1)]"></span>
+        </div>
+        <div>
+          <h1 class="text-xl font-black gradient-text">CyberTech</h1>
+          <p class="text-[11px] text-slate-400 tracking-wide">
+            Software & Cybersecurity Studio
+          </p>
+        </div>
+      </div>
+
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex items-center gap-6 text-xs">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="about.html">About</a>
+        <a class="nav-link" href="services.html">Services</a>
+        <a class="nav-link" href="packages.html">Packages</a>
+        <a class="nav-link" href="#complaint">Complaint</a>
+        <a class="nav-link" href="ccontct.html">Contact</a>
+        <button
+          class="btn"
+          onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"
+        >
+          Send a message
+        </button>
+      </nav>
+
+      <!-- Mobile hamburger -->
+      <button class="menu-toggle md:hidden" id="menuToggle" aria-label="Open menu">
+        ☰
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile sidebar -->
+  <aside class="mobile-sidebar" id="mobileSidebar">
+    <button class="close-btn" id="closeSidebar" aria-label="Close menu">×</button>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="packages.html">Packages</a>
+    <a href="#complaint">Complaint</a>
+    <a href="ccontct.html">Contact</a>
+  </aside>
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <main class="pt-28">
+    <!-- HERO -->
+    <section class="section min-h-screen flex items-center">
+      <div class="container grid lg:grid-cols-2 gap-12 items-center">
+        <div class="reveal">
+          <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-slate-300 mb-6">
+            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+            Trusted digital partner
+          </span>
+          <h2 class="text-5xl md:text-7xl font-black leading-tight">
+            Build secure digital products with a <span class="gradient-text">3D futuristic</span> experience.
+          </h2>
+          <p class="mt-6 text-slate-400 text-lg max-w-xl">
+            We design and develop modern software solutions, enterprise platforms, and cybersecurity systems for professional clients who expect quality, trust, and performance.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="#services" class="btn">Explore Services</a>
+            <a href="#contact" class="px-6 py-3 rounded-full glass border border-white/10 hover:border-cyan-400/60 transition">Contact Us</a>
+          </div>
+        </div>
+
+        <div class="relative reveal">
+          <div class="hero-shape"></div>
+          <div class="glass-strong rounded-[2rem] p-6 md:p-8 card-3d float">
+            <div class="grid-bg absolute inset-0 rounded-[2rem]"></div>
+            <div class="relative">
+              <div class="flex items-center justify-between mb-6">
+                <div>
+                  <p class="text-slate-400 text-sm">Live Security Status</p>
+                  <h3 class="text-2xl font-bold">Protected Infrastructure</h3>
+                </div>
+                <div class="w-16 h-16 rounded-full bg-cyan-400/10 relative flex items-center justify-center">
+                  <div class="absolute inset-0 rounded-full border border-cyan-400/40 pulse-ring"></div>
+                  <span class="text-cyan-300 font-bold">99%</span>
+                </div>
+              </div>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div class="glass rounded-2xl p-5">
+                  <p class="text-slate-400 text-sm">Software Delivery</p>
+                  <p class="text-3xl font-black mt-2">Fast</p>
+                  <p class="text-sm text-slate-400 mt-2">Modern apps, dashboards, and portals.</p>
+                </div>
+                <div class="glass rounded-2xl p-5">
+                  <p class="text-slate-400 text-sm">Cyber Defense</p>
+                  <p class="text-3xl font-black mt-2">Strong</p>
+                  <p class="text-sm text-slate-400 mt-2">Threat monitoring and incident response.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="container grid lg:grid-cols-2 gap-10 items-center">
+        <div class="reveal">
+          <h3 class="text-4xl font-bold mb-5">About Us</h3>
+          <p class="text-slate-400 leading-8">
+            We are a modern software house focused on building scalable digital products and secure online systems. Our team blends design, development, and cybersecurity to deliver polished results for businesses that want to stand out.
+          </p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-5 reveal">
+          <div class="glass rounded-2xl p-6 card-3d">
+            <h4 class="text-xl font-bold mb-2">Professional Team</h4>
+            <p class="text-slate-400">Skilled developers, designers, and security specialists.</p>
+          </div>
+          <div class="glass rounded-2xl p-6 card-3d">
+            <h4 class="text-xl font-bold mb-2">Client Focus</h4>
+            <p class="text-slate-400">Solutions made for business growth and trust.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MISSION -->
+    <section id="mission" class="section">
+      <div class="container">
+        <div class="max-w-3xl reveal">
+          <h3 class="text-4xl font-bold mb-5">Mission & Vision</h3>
+          <p class="text-slate-400 leading-8 mb-6">
+            Our mission is to engineer robust, scalable software solutions while integrating advanced cybersecurity protocols to protect and empower digital infrastructure. By bridging agile software development with rigorous cyber defense, we deliver innovative technological solutions that prioritize both functionality and data integrity. Our vision is to be a globally trusted partner for secure digital transformation, setting the standard for resilience and engineering excellence. We strive to create an environment where technology development and data security are seamlessly integrated, empowering organizations to innovate without vulnerability and achieve their long-term strategic objectives with total confidence.
+          </p>
+          <div class="grid md:grid-cols-3 gap-5">
+            <div class="glass rounded-2xl p-5 card-3d"><p class="font-semibold">Innovation</p><p class="text-slate-400 text-sm mt-2">Fresh ideas with practical execution.</p></div>
+            <div class="glass rounded-2xl p-5 card-3d"><p class="font-semibold">Security</p><p class="text-slate-400 text-sm mt-2">Safe systems built with trust in mind.</p></div>
+            <div class="glass rounded-2xl p-5 card-3d"><p class="font-semibold">Excellence</p><p class="text-slate-400 text-sm mt-2">Clean, polished, and professional delivery.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="section">
+      <div class="container">
+        <div class="reveal mb-10">
+          <h3 class="text-4xl font-bold mb-4">Our Services</h3>
+          <p class="text-slate-400 max-w-2xl">We provide complete digital solutions for businesses that need strong software and serious cybersecurity.</p>
+        </div>
+        <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div class="glass rounded-3xl p-7 card-3d reveal">
+            <h4 class="text-2xl font-bold mb-3">Web Development</h4>
+            <p class="text-slate-400">High-quality websites, business portals, and landing pages.</p>
+          </div>
+          <div class="glass rounded-3xl p-7 card-3d reveal">
+            <h4 class="text-2xl font-bold mb-3">App Development</h4>
+            <p class="text-slate-400">Mobile and web apps designed for speed and usability.</p>
+          </div>
+          <div class="glass rounded-3xl p-7 card-3d reveal">
+            <h4 class="text-2xl font-bold mb-3">Cybersecurity</h4>
+            <p class="text-slate-400">Threat analysis, monitoring, and protection strategies.</p>
+          </div>
+          <div class="glass rounded-3xl p-7 card-3d reveal">
+            <h4 class="text-2xl font-bold mb-3">Cloud Solutions</h4>
+            <p class="text-slate-400">Scalable infrastructure and secure deployment support.</p>
+          </div>
+          <div class="glass rounded-3xl p-7 card-3d reveal">
+            <h4 class="text-2xl font-bold mb-3">UI/UX Design</h4>
+            <p class="text-slate-400">Modern interfaces with smooth 3D-style interactions.</p>
+          </div>
+          <div class="glass rounded-3xl p-7 card-3d reveal">
+            <h4 class="text-2xl font-bold mb-3">Consulting</h4>
+            <p class="text-slate-400">Strategy and technical guidance for digital growth.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPLAINT -->
+    <section id="complaint" class="section">
+      <div class="container grid lg:grid-cols-2 gap-10 items-center">
+        <div class="reveal">
+          <h3 class="text-4xl font-bold mb-5">Cybercrime Complaint</h3>
+          <p class="text-slate-400 leading-8">
+            Submit suspicious activity, phishing attempts, account abuse, or fraud reports through this secure complaint form. The section is designed to feel official, clear, and trustworthy.
+          </p>
+          <div class="mt-6 glass rounded-2xl p-5">
+            <p class="text-sm text-slate-400">We prioritize confidentiality and fast response for every complaint.</p>
+          </div>
+        </div>
+        <div class="glass-strong rounded-3xl p-8 card-3d reveal">
+          <form id="complaintForm" class="space-y-4">
+            <div class="grid md:grid-cols-2 gap-4">
+              <input class="input" type="text" placeholder="Full Name" required />
+              <input class="input" type="email" placeholder="Email Address" required />
+            </div>
+            <input class="input" type="text" placeholder="Subject" required />
+            <textarea class="input min-h-[160px] resize-none" placeholder="Describe the cybercrime incident..." required></textarea>
+            <button class="btn w-full" type="submit">Submit Complaint Securely</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="container grid lg:grid-cols-2 gap-10">
+        <div class="reveal">
+          <h3 class="text-4xl font-bold mb-5">Contact Us</h3>
+          <p class="text-slate-400 mb-6">Reach out for software projects, cybersecurity consulting, or support inquiries.</p>
+          <div class="space-y-4">
+            <div class="glass rounded-2xl p-5"><p class="text-slate-400 text-sm">Email</p><p class="text-lg font-semibold">info@cybertech.com</p></div>
+            <div class="glass rounded-2xl p-5"><p class="text-slate-400 text-sm">Phone</p><p class="text-lg font-semibold">+92 300 1234567</p></div>
+            <div class="glass rounded-2xl p-5"><p class="text-slate-400 text-sm">Business Hours</p><p class="text-lg font-semibold">Mon - Sat, 9:00 AM - 7:00 PM</p></div>
+          </div>
+        </div>
+        <div class="glass-strong rounded-3xl p-8 reveal">
+          <form class="space-y-4">
+            <input class="input" type="text" placeholder="Your Name" />
+            <input class="input" type="email" placeholder="Your Email" />
+            <textarea class="input min-h-[150px] resize-none" placeholder="Your Message"></textarea>
+            <button class="btn w-full" type="button">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCATION -->
+    <section id="location" class="section">
+      <div class="container grid lg:grid-cols-2 gap-10 items-start">
+        <div class="reveal">
+          <h3 class="text-4xl font-bold mb-5">Our Location</h3>
+          <p class="text-slate-400 leading-8 mb-6">
+            Visit our office for discussions, project planning, and in-person consultations.
+          </p>
+          <div class="glass rounded-2xl p-6">
+            <p class="font-semibold">CyberTech Solutions</p>
+            <p class="text-slate-400 mt-2">Main Office, Sahiwal, Punjab, Pakistan</p>
+            <p class="text-slate-400 mt-1">Open for appointments and business meetings.</p>
+          </div>
+        </div>
+        <div class="glass-strong rounded-3xl overflow-hidden reveal">
+          <iframe
+            src="https://www.google.com/maps?q=Sahiwal,Punjab,Pakistan&output=embed"
+            width="100%"
+            height="380"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="section">
+      <div class="container">
+        <div class="reveal mb-8">
+          <h3 class="text-4xl font-bold mb-4">Trusted By Professionals</h3>
+          <p class="text-slate-400">Clean execution, security-first thinking, and strong visual polish make the site feel premium.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="glass rounded-3xl p-6 card-3d reveal">
+            <p class="text-slate-400">“Modern, clean, and seriously professional.”</p>
+            <p class="mt-4 font-semibold">Client Feedback</p>
+          </div>
+          <div class="glass rounded-3xl p-6 card-3d reveal">
+            <p class="text-slate-400">“The 3D style makes the brand feel premium.”</p>
+            <p class="mt-4 font-semibold">Client Feedback</p>
+          </div>
+          <div class="glass rounded-3xl p-6 card-3d reveal">
+            <p class="text-slate-400">“Exactly the kind of website professionals trust.”</p>
+            <p class="mt-4 font-semibold">Client Feedback</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="section pt-16 pb-10 border-t border-white/10">
+    <div class="container grid md:grid-cols-3 gap-8">
+      <div>
+        <h4 class="text-2xl font-black gradient-text">CyberTech</h4>
+        <p class="text-slate-400 mt-3">Software development and cybersecurity solutions for modern businesses.</p>
+      </div>
+      <div>
+        <h5 class="font-bold mb-3">Quick Links</h5>
+        <div class="space-y-2 text-slate-400">
+          <a class="block hover:text-white" href="#about">About</a>
+          <a class="block hover:text-white" href="#services">Services</a>
+          <a class="block hover:text-white" href="#contact">Contact</a>
+        </div>
+      </div>
+      <div>
+        <h5 class="font-bold mb-3">Contact</h5>
+        <p class="text-slate-400">info@cybertech.com</p>
+        <p class="text-slate-400">+92 300 1234567</p>
+        <p class="text-slate-400">Sahiwal, Punjab, Pakistan</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    document.getElementById('bg3d').appendChild(renderer.domElement);
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    const core = new THREE.Mesh(
+      new THREE.IcosahedronGeometry(6, 1),
+      new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true, transparent: true, opacity: 0.45 })
+    );
+
+    const ring = new THREE.Mesh(
+      new THREE.TorusGeometry(10, 0.45, 16, 120),
+      new THREE.MeshBasicMaterial({ color: 0x8b5cf6, wireframe: true, transparent: true, opacity: 0.6 })
+    );
+
+    group.add(core);
+    group.add(ring);
+    camera.position.z = 28;
+
+    function animate(){
+      requestAnimationFrame(animate);
+      group.rotation.x += 0.002;
+      group.rotation.y += 0.004;
+      core.rotation.y += 0.006;
+      ring.rotation.x -= 0.003;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) entry.target.classList.add('show');
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    document.getElementById('complaintForm').addEventListener('submit', e => {
+      e.preventDefault();
+      alert('Your complaint has been submitted securely.');
+      e.target.reset();
+    });
+  </script>
+
+  <!-- MOBILE NAV SCRIPT -->
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileSidebar = document.getElementById('mobileSidebar');
+    const closeSidebar = document.getElementById('closeSidebar');
+    const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+
+    function openSidebar() {
+      mobileSidebar.classList.add('open');
+      sidebarBackdrop.classList.add('open');
+    }
+
+    function closeSidebarFn() {
+      mobileSidebar.classList.remove('open');
+      sidebarBackdrop.classList.remove('open');
+    }
+
+    if (menuToggle) {
+      menuToggle.addEventListener('click', openSidebar);
+    }
+    if (closeSidebar) {
+      closeSidebar.addEventListener('click', closeSidebarFn);
+    }
+    if (sidebarBackdrop) {
+      sidebarBackdrop.addEventListener('click', closeSidebarFn);
+    }
+  </script>
+</body>
+</html>
